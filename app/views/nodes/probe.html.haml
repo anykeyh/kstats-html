@@ -1,0 +1,8 @@
+%h2 Daily graph
+%div.chart{:'data-width'=>"920", :'data-height'=>"400", :'data-target' => 'tick'}=@daily.to_json
+%h2 Weekly graph
+%div.chart{:'data-width'=>"920", :'data-height'=>"400", :'data-target' => 'weekly'}=@weekly.to_json
+%h2 Monthly graph
+%div.chart{:'data-width'=>"920", :'data-height'=>"400", :'data-target' => 'monthly'}=@monthly.to_json
+%h2 Yearly graph
+%div.chart{:'data-width'=>"920", :'data-height'=>"400", :'data-target' => 'yearly'}=@yearly.to_json

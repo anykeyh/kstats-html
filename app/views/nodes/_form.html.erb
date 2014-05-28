@@ -1,0 +1,26 @@
+<%= form_for @node, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :adress, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :adress, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :port, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :port, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                nodes_path, :class => 'btn' %>
+  </div>
+<% end %>
