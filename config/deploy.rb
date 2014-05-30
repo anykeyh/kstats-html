@@ -27,7 +27,11 @@ def rb_exec cmd
 end
 
 task :configure, :roles => :web do
-  run "test -e #{shared_path}/config || mkdir -p #{shared_path}/config"
+  %w(config sockets log pids).each do |dir|
+    run "test -e #{shared_path}/#{dir} || mkdir -p #{shared_path}/#{dir}"
+  end
+
+  run "rm -rf #{current_release}/log; ln -s #{shared_path}/log #{current_release}/log"
 
   capture("ls -1 #{shared_path}/config/").split(/\n/).each do |file|
     filename = file.split(/\//)[-1]
