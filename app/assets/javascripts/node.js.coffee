@@ -2,6 +2,9 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).on 'ready page:load', ->
+  DAYS = ['Sun', 'Mond', 'Tues', 'Wedn', 'Thur', 'Frid', 'Sat']
+  MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  
   $("div.chart").each ->
     canvas = $("<canvas>").attr(width: $(this).attr('data-width'), height: $(this).attr('data-height'))
 
@@ -26,20 +29,48 @@ $(document).on 'ready page:load', ->
       monthly: () ->
         data.labels = new Array(total_data)
 
-        for x in [0..data.labels.length]
-          data.labels[x] = ""
-
-      weekly: () ->
-        data.labels = new Array(total_data)
+        start = new Date(jsonData.start_at)
+        step = ((30 * 24 * 60 * 60000) / 288)
 
         for x in [0..data.labels.length]
-          data.labels[x] = ""
+          c = new Date(start.getTime() + step*x)
+          n = new Date(start.getTime() + step*(x+1))
+
+          if c.getDate() != n.getDate()
+            data.labels[x] = "#{n.getDate()}"
+          else
+            data.labels[x] = ""
 
       yearly: () ->
         data.labels = new Array(total_data)
 
+        start = new Date(jsonData.start_at)
+        step = ((365 * 24 * 60 * 60000) / 288)
+
         for x in [0..data.labels.length]
-          data.labels[x] = ""
+          c = new Date(start.getTime() + step*x)
+          n = new Date(start.getTime() + step*(x+1))
+
+          if c.getMonth() != n.getMonth()
+            data.labels[x] = MONTHS[n.getMonth()]
+          else
+            data.labels[x] = ""
+
+      weekly: () ->
+        data.labels = new Array(total_data)
+
+        start = new Date(jsonData.start_at)
+        step = ((7 * 24 * 60 * 60000) / 288)
+
+        for x in [0..data.labels.length]
+          c = new Date(start.getTime() + step*x)
+          n = new Date(start.getTime() + step*(x+1))
+
+          console.log c, n
+          if c.getDate() != n.getDate()
+            data.labels[x] = DAYS[n.getDay()]
+          else
+            data.labels[x] = ""
 
       tick: () ->
         data.labels = []
